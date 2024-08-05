@@ -28,9 +28,12 @@ while True:
 		case "show" | "display" | "s":
 			index = 0
 			print(f"You have completed {completed_todos} tasks.")
-			for item in todo_list:
-				index += 1
-				print(f"{index}. {item}")
+			if len(todo_list) == 0:
+				print("There are currently no todos")
+			else:
+				for item in todo_list:
+					index += 1
+					print(f"{index}. {item}")
 
 		case "edit" | "e":
 			edit_choice = int(input(f'Choose a todo to edit (1 ... {len(todo_list)}): '))
@@ -48,8 +51,6 @@ while True:
 				todo_list.remove(todo_list[completed_choice - 1])
 				print("Successfully completed a todo")
 				completed_todos += 1
-
-
 
 		case "quit" | "q":
 			break
