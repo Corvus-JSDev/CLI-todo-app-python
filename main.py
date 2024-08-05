@@ -5,7 +5,9 @@ while True:
 
 	match user_command:
 		case "add":
-			todo = input("Enter a todo: ").title()
+			# .title() will capitalize the first letter of each word.
+			# .strip() will remove any trailing or leading spaces
+			todo = input("Enter a todo: ").title().strip()
 			todo_list.append(todo)
 
 		case "show" :
