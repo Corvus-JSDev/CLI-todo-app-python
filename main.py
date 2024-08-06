@@ -56,6 +56,7 @@ while True:
 		case "edit" | "e":
 			file = open("user_todo.txt", "r")
 			todo_list = file.readlines()
+			file.close()
 
 			edit_choice = int(input(f'Choose a todo to edit (1 ... {len(todo_list)}): '))
 			if edit_choice > len(todo_list) or edit_choice <= 0:
@@ -65,16 +66,23 @@ while True:
 				print(f'\nEditing: {todo_list[edit_choice - 1]}', end="")
 				todo_list[edit_choice - 1] = input('New todo: ').capitalize() + "\n"
 				file.writelines(todo_list)
-			file.close()
+				file.close()
 
 		case "complete" | "c":
+			file = open("user_todo.txt", "r")
+			todo_list = file.readlines()
+			file.close()
+
 			completed_choice = int(input(f'Choose the todo you have finished (1 ... {len(todo_list)}): '))
 			if completed_choice > len(todo_list) or completed_choice <= 0:
 				print(f"That todo doesnt exist.")
 			else:
+				file = open("user_todo.txt", "w")
 				todo_list.remove(todo_list[completed_choice - 1])
 				print("Successfully completed a todo")
 				completed_todos += 1
+				file.writelines(todo_list)
+				file.close()
 
 		case "quit" | "q":
 			break
