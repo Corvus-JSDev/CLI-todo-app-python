@@ -40,6 +40,10 @@ while True:
 			file.close()
 
 		case "show" | "display" | "s":
+			file = open("user_todo.txt", "r")
+			todo_list = file.readlines()
+			file.close()  # closing a file will not affect the contents of todo_list
+
 			index = 0
 			print(f"You have completed {completed_todos} tasks.")
 			if len(todo_list) == 0:
@@ -47,7 +51,7 @@ while True:
 			else:
 				for item in todo_list:
 					index += 1
-					print(f"{index}. {item}")
+					print(f"{index}. {item}", end="")
 
 		case "edit" | "e":
 			edit_choice = int(input(f'Choose a todo to edit (1 ... {len(todo_list)}): '))
