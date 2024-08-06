@@ -1,12 +1,12 @@
-todo_list = []
 completed_todos = 0
 
 help_commands ="""
-1) Add: Add a todo.
-2) Show: Show all your todos.
-3) Edit: Edit a single todo.
-4) Complete: Select what todo you have completed.
+! 1) Add: Add a todo.
+* 2) Show: Show all your todos.
+? 3) Edit: Edit a single todo.
+TODO: 4) Complete: Select what todo you have completed.
 5) Quit: Exit the program.
+
 """
 
 
@@ -19,11 +19,25 @@ while True:
 			print(help_commands)
 
 		case "add" | "a":
-			# .title() will capitalize the first letter of 'every' word.
 			# .capitalize() will capitalize the first letter of the 'first' word
 			# .strip() will remove any trailing or leading spaces
-			todo = input("Enter a todo: ").capitalize().strip()
-			todo_list.append(todo)
+			add_todo = input("Enter a todo: ").capitalize().strip() + "\n"
+
+			# Open the txt file and output its contents into the todo_list
+			# file.readlineS() will return a list with each line in the file being a new item
+			# file.readline() (with NO s) will only read a single line and return a string
+			file = open("user_todo.txt", "r")
+			todo_list = file.readlines()
+			todo_list.append(add_todo)
+			# It's important to close the file once you're done with it because other lines in the program may			interact with it, if it's still open
+			file.close()
+
+			# Write (w) the contents of todo_list to the txt file
+			# The files will update when the program is ended
+			# Note: w will over-write the entire file
+			file = open('user_todo.txt', 'w')
+			file.writelines(todo_list)
+			file.close()
 
 		case "show" | "display" | "s":
 			index = 0
