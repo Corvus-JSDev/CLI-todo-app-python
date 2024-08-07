@@ -97,21 +97,8 @@ while True:
 
 	#* QUIT
 	elif user_command.startswith('quit') or user_command.startswith('q'):
-		break
+		print("\n\nYou have ended the program... goodbye")
+		quit()
 
 	else:
 		print(f'\'{user_command}\' is not a valid command. Type \'help\' for a list of commands')
-
-print("\n\nYou have ended the program... goodbye")
-
-
-
-
-
-
-
-
-
-
-
-
