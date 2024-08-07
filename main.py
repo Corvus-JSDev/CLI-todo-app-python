@@ -20,10 +20,10 @@ print("type 'help' for a list of commands\n")
 while True:
 	user_command = input("\nWrite a command: ").lower().strip()
 
-	if "help" in user_command[:4] or "h" in user_command[:1]:
+	if user_command.startswith("help") or user_command.startswith("h"):
 		print(help_commands)
 
-	elif "add" in user_command[:3] or "a" in user_command[:1]:
+	elif user_command.startswith('add') or user_command.startswith('a'):
 		# .capitalize() will capitalize the first letter of the 'first' word
 		# .strip() will remove any trailing or leading spaces
 		add_todo = remove_first_word(user_command).strip().capitalize() + "\n"
@@ -40,7 +40,7 @@ while True:
 		with open('user_todo.txt', 'w') as file:
 			file.writelines(todo_list)
 
-	elif "show" in user_command[:4] or "s" in user_command[:1]:
+	elif user_command.startswith("show") or user_command.startswith("s"):
 		# Context Managers are important to use because they not only take up less lines of code, but they will also use context to close any opened files if an errors are thrown
 		with open("user_todo.txt", "r") as file:
 			todo_list = file.readlines()
@@ -53,7 +53,7 @@ while True:
 			for index, item in enumerate(todo_list):
 				print(f"{index + 1}. {item}", end="")
 
-	elif "edit" in user_command[:4] or "e" in user_command[:1]:
+	elif user_command.startswith('edit') or user_command.startswith('e'):
 		edit_choice = int(remove_first_word(user_command).strip())
 
 		with open("user_todo.txt", "r") as file:
@@ -67,7 +67,7 @@ while True:
 				todo_list[edit_choice - 1] = input('New todo: ').capitalize() + "\n"
 				file.writelines(todo_list)
 
-	elif "complete" in user_command[:8] or "c" in user_command[:1]:
+	elif user_command.startswith("complete") or user_command.startswith('c'):
 		completed_choice = int(remove_first_word(user_command).strip())
 
 		with open('user_todo.txt', 'r') as file:
@@ -82,7 +82,7 @@ while True:
 				# completed_todos += 1
 				print("Successfully completed a todo")
 
-	elif "quit" in user_command[:4] or "q" in user_command[:1]:
+	elif user_command.startswith('quit') or user_command.startswith('q'):
 		break
 
 	else:
