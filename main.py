@@ -1,4 +1,4 @@
-completed_todos = 0
+print("type 'help' for a list of commands\n")
 
 help_commands ="""
 1) Add <todo> .......... Add a todo.
@@ -14,15 +14,14 @@ def remove_first_word(s):
 		return ' '.join(words[1:])
 	return ''
 
-
-
-print("type 'help' for a list of commands\n")
 while True:
 	user_command = input("\nWrite a command: ").lower().strip()
 
+	#* HELP
 	if user_command.startswith("help") or user_command.startswith("h"):
 		print(help_commands)
 
+	#* ADD
 	elif user_command.startswith('add') or user_command.startswith('a'):
 		# .capitalize() will capitalize the first letter of the 'first' word
 		# .strip() will remove any trailing or leading spaces
@@ -40,6 +39,7 @@ while True:
 		with open('user_todo.txt', 'w') as file:
 			file.writelines(todo_list)
 
+	#* SHOW
 	elif user_command.startswith("show") or user_command.startswith("s"):
 		# Context Managers are important to use because they not only take up less lines of code, but they will also use context to close any opened files if an errors are thrown
 		with open("user_todo.txt", "r") as file:
@@ -53,35 +53,47 @@ while True:
 			for index, item in enumerate(todo_list):
 				print(f"{index + 1}. {item}", end="")
 
+	#* EDIT
 	elif user_command.startswith('edit') or user_command.startswith('e'):
-		edit_choice = int(remove_first_word(user_command).strip())
+		edit_choice = remove_first_word(user_command).strip()
 
-		with open("user_todo.txt", "r") as file:
-			todo_list = file.readlines()
+		try:
+			edit_choice = int(edit_choice)
+			with open("user_todo.txt", "r") as file:
+				todo_list = file.readlines()
 
-		if edit_choice > len(todo_list) or edit_choice <= 0:
-			print(f"That todo doesnt exist.")
-		else:
-			with open('user_todo.txt', 'w') as file:
-				print(f'\nEditing: {todo_list[edit_choice - 1]}', end="")
-				todo_list[edit_choice - 1] = input('New todo: ').capitalize() + "\n"
-				file.writelines(todo_list)
+			if edit_choice > len(todo_list) or edit_choice <= 0:
+				print(f"That todo doesnt exist.")
+			else:
+				with open('user_todo.txt', 'w') as file:
+					print(f'\nEditing: {todo_list[edit_choice - 1]}', end="")
+					todo_list[edit_choice - 1] = input('New todo: ').capitalize() + "\n"
+					file.writelines(todo_list)
+		except ValueError:
+			print(f'\'{edit_choice}\' is not a valid option. Please input a single number.\ne.g. \'edit 3\'')
+			continue
 
+	#* COMPLETE
 	elif user_command.startswith("complete") or user_command.startswith('c'):
-		completed_choice = int(remove_first_word(user_command).strip())
+		completed_choice = remove_first_word(user_command).strip()
 
-		with open('user_todo.txt', 'r') as file:
-			todo_list = file.readlines()
+		try:
+			completed_choice = int(completed_choice)
+			with open('user_todo.txt', 'r') as file:
+				todo_list = file.readlines()
 
-		if completed_choice > len(todo_list) or completed_choice <= 0:
-			print(f"That todo doesnt exist.")
-		else:
-			with open('user_todo.txt', 'w') as file:
-				todo_list.remove(todo_list[completed_choice - 1])
-				file.writelines(todo_list)
-				# completed_todos += 1
-				print("Successfully completed a todo")
+			if completed_choice > len(todo_list) or completed_choice <= 0:
+				print(f"That todo doesnt exist.")
+			else:
+				with open('user_todo.txt', 'w') as file:
+					todo_list.remove(todo_list[completed_choice - 1])
+					file.writelines(todo_list)
+					# completed_todos += 1
+					print("Successfully completed a todo")
+		except ValueError:
+			print(f'\'{completed_choice}\' is not a valid option. Please input a single number.')
 
+	#* QUIT
 	elif user_command.startswith('quit') or user_command.startswith('q'):
 		break
 
