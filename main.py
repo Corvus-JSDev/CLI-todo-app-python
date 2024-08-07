@@ -17,9 +17,9 @@ def remove_first_word(s):
 
 def get_todo():
 	# Context Managers are important to use because they not only take up less lines of code, but they will also use context to close any opened files if an errors are thrown
-	with open('user_todo.txt', 'r') as file:
-		todo_list = file.readlines()
-	return todo_list
+	with open('user_todo.txt', 'r') as text_file:
+		text = text_file.readlines()
+	return text
 
 
 while True:
