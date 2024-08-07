@@ -15,11 +15,12 @@ def remove_first_word(s):
 		return ' '.join(words[1:])
 	return ''
 
-def get_todo():
+def get_todo(file_path):
 	# Context Managers are important to use because they not only take up less lines of code, but they will also use context to close any opened files if an errors are thrown
-	with open('user_todo.txt', 'r') as text_file:
+	with open(file_path, 'r') as text_file:
 		text = text_file.readlines()
 	return text
+todo_save_file = "user_todo.txt"
 
 
 while True:
@@ -36,7 +37,7 @@ while True:
 		add_todo = remove_first_word(user_command).strip().capitalize() + "\n"
 
 		# Open the txt file and output its contents into the todo_list
-		todo_list = get_todo()
+		todo_list = get_todo(todo_save_file)
 		todo_list.append(add_todo)
 
 		# Write (w) the contents of todo_list to the txt file
@@ -47,7 +48,7 @@ while True:
 
 	#* SHOW
 	elif user_command.startswith("show") or user_command.startswith("s"):
-		todo_list = get_todo()
+		todo_list = get_todo(todo_save_file)
 
 		# print(f"\nYou have completed {completed_todos} tasks.")
 		print("\n------- TODOs -------")
@@ -63,7 +64,7 @@ while True:
 
 		try:
 			edit_choice = int(edit_choice)
-			todo_list = get_todo()
+			todo_list = get_todo(todo_save_file)
 
 			if edit_choice > len(todo_list) or edit_choice <= 0:
 				print(f"That todo doesnt exist.")
@@ -82,7 +83,7 @@ while True:
 
 		try:
 			completed_choice = completed_choice.split()
-			todo_list = get_todo()
+			todo_list = get_todo(todo_save_file)
 
 			for num in completed_choice:
 				num = int(num)
