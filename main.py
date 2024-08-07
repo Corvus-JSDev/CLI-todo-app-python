@@ -8,11 +8,19 @@ help_commands ="""
 5) Quit ................ End the program.
 """
 
+
 def remove_first_word(s):
 	words = s.split()
 	if len(words) > 1:
 		return ' '.join(words[1:])
 	return ''
+
+def get_todo():
+	# Context Managers are important to use because they not only take up less lines of code, but they will also use context to close any opened files if an errors are thrown
+	with open('user_todo.txt', 'r') as file:
+		todo_list = file.readlines()
+	return todo_list
+
 
 while True:
 	user_command = input("\nWrite a command: ").lower().strip()
@@ -28,10 +36,8 @@ while True:
 		add_todo = remove_first_word(user_command).strip().capitalize() + "\n"
 
 		# Open the txt file and output its contents into the todo_list
-		# file.readlineS() will return a list with each line in the file being a new item
-		with open("user_todo.txt", "r") as file:
-			todo_list = file.readlines()
-			todo_list.append(add_todo)
+		todo_list = get_todo()
+		todo_list.append(add_todo)
 
 		# Write (w) the contents of todo_list to the txt file
 		# The files will update when the program is ended
@@ -41,9 +47,7 @@ while True:
 
 	#* SHOW
 	elif user_command.startswith("show") or user_command.startswith("s"):
-		# Context Managers are important to use because they not only take up less lines of code, but they will also use context to close any opened files if an errors are thrown
-		with open("user_todo.txt", "r") as file:
-			todo_list = file.readlines()
+		todo_list = get_todo()
 
 		# print(f"\nYou have completed {completed_todos} tasks.")
 		print("\n------- TODOs -------")
@@ -59,8 +63,7 @@ while True:
 
 		try:
 			edit_choice = int(edit_choice)
-			with open("user_todo.txt", "r") as file:
-				todo_list = file.readlines()
+			todo_list = get_todo()
 
 			if edit_choice > len(todo_list) or edit_choice <= 0:
 				print(f"That todo doesnt exist.")
@@ -79,9 +82,7 @@ while True:
 
 		try:
 			completed_choice = completed_choice.split()
-
-			with open('user_todo.txt', 'r') as file:
-				todo_list = file.readlines()
+			todo_list = get_todo()
 
 			for num in completed_choice:
 				num = int(num)
