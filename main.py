@@ -78,20 +78,22 @@ while True:
 		completed_choice = remove_first_word(user_command).strip()
 
 		try:
-			completed_choice = int(completed_choice)
+			completed_choice = completed_choice.split()
+
 			with open('user_todo.txt', 'r') as file:
 				todo_list = file.readlines()
 
-			if completed_choice > len(todo_list) or completed_choice <= 0:
-				print(f"That todo doesnt exist.")
-			else:
-				with open('user_todo.txt', 'w') as file:
-					todo_list.remove(todo_list[completed_choice - 1])
-					file.writelines(todo_list)
-					# completed_todos += 1
-					print("Successfully completed a todo")
+			for num in completed_choice:
+				num = int(num)
+				if num > len(todo_list) or num <= 0:
+					print(f"{num} todo does not exist.")
+				else:
+					with open('user_todo.txt', 'w') as file:
+						todo_list.remove(todo_list[num - 1])
+						file.writelines(todo_list)
+						print("Successfully completed a todo")
 		except ValueError:
-			print(f'\'{completed_choice}\' is not a valid option. Please input a single number.')
+			print(f'Error: That is not a valid option. Please only input numbers separated by spaces.\ne.g. \'complete 1 2 3\'')
 
 	#* QUIT
 	elif user_command.startswith('quit') or user_command.startswith('q'):
