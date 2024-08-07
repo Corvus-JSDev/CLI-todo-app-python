@@ -1,11 +1,11 @@
 completed_todos = 0
 
 help_commands ="""
-1) Add <todo>: Add a todo.
-2) Show: Show all your todos.
-3) Edit <number>: Edit a single todo.
-4) Complete <number>: Select what todo you have completed.
-5) Quit: Exit the program.
+1) Add <todo> .......... Add a todo.
+2) Show ................ Show all your todos.
+3) Edit <number> ....... Edit a single todo.
+4) Complete <number> ... Select what todo you have completed.
+5) Quit ................ End the program.
 """
 
 
@@ -13,10 +13,10 @@ print("type 'help' for a list of commands\n")
 while True:
 	user_command = input("\nWrite a command: ").lower().strip()
 
-	if "help" in user_command:
+	if "help" in user_command[:4]:
 		print(help_commands)
 
-	if "add" in user_command:
+	elif "add" in user_command[:3]:
 		# .capitalize() will capitalize the first letter of the 'first' word
 		# .strip() will remove any trailing or leading spaces
 		add_todo = user_command.removeprefix("add").strip().capitalize() + "\n"
@@ -33,7 +33,7 @@ while True:
 		with open('user_todo.txt', 'w') as file:
 			file.writelines(todo_list)
 
-	if "show" in user_command:
+	elif "show" in user_command[:4]:
 		# Context Managers are important to use because they not only take up less lines of code, but they will also use context to close any opened files if an errors are thrown
 		with open("user_todo.txt", "r") as file:
 			todo_list = file.readlines()
@@ -46,7 +46,7 @@ while True:
 			for index, item in enumerate(todo_list):
 				print(f"{index + 1}. {item}", end="")
 
-	if "edit" in user_command:
+	elif "edit" in user_command[:4]:
 		edit_choice = int(user_command.removeprefix("edit").strip())
 
 		with open("user_todo.txt", "r") as file:
@@ -60,7 +60,7 @@ while True:
 				todo_list[edit_choice - 1] = input('New todo: ').capitalize() + "\n"
 				file.writelines(todo_list)
 
-	if "complete" in user_command:
+	elif "complete" in user_command[:8]:
 		completed_choice = int(user_command.removeprefix("complete").strip())
 
 		with open('user_todo.txt', 'r') as file:
@@ -75,9 +75,11 @@ while True:
 				# completed_todos += 1
 				print("Successfully completed a todo")
 
-	if "quit" in user_command:
+	elif "quit" in user_command[:4]:
 		break
 
+	else:
+		print(f'{user_command} is not a valid command. Type \'help\' for a list of commands')
 
 print("\n\nYou have ended the program... goodbye")
 
