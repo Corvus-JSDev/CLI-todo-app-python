@@ -1,3 +1,6 @@
+#    <dir>.<file name>      <functions 1>, <functions 2>, <functions 3>
+from funcs.functions import remove_first_word, get_todo, write_todo
+
 print("type 'help' for a list of commands\n")
 
 help_commands ="""
@@ -7,28 +10,6 @@ help_commands ="""
 4) Complete <number> ... Select what todo you have completed.
 5) Quit ................ End the program.
 """
-
-def remove_first_word(s):
-	""" Did you really need a doc string for this? """
-	words = s.split()
-	if len(words) > 1:
-		return ' '.join(words[1:])
-	return ''
-
-
-todo_save_file = "user_todo.txt"
-def get_todo(file_path="user_todo.txt"):
-	""" Grab all the todos in the file """
-	# Context Managers are important to use because they not only take up less lines of code, but they will also use context to close any opened files if an errors are thrown
-	with open(file_path, 'r') as text_file:
-		text = text_file.readlines()
-	return text
-
-
-def write_todo(todo, filepath="user_todo.txt"):
-	""" Write a new todo(s) to the file """
-	with open(filepath, 'w') as text_file:
-		text_file.writelines(todo)
 
 
 while True:
