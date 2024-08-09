@@ -8,8 +8,8 @@ help_commands ="""
 5) Quit ................ End the program.
 """
 
-
 def remove_first_word(s):
+	""" Did you really need a doc string for this? """
 	words = s.split()
 	if len(words) > 1:
 		return ' '.join(words[1:])
@@ -17,14 +17,16 @@ def remove_first_word(s):
 
 
 todo_save_file = "user_todo.txt"
-def get_todo(file_path):
+def get_todo(file_path="user_todo.txt"):
+	""" Grab all the todos in the file """
 	# Context Managers are important to use because they not only take up less lines of code, but they will also use context to close any opened files if an errors are thrown
 	with open(file_path, 'r') as text_file:
 		text = text_file.readlines()
 	return text
 
 
-def write_todo(filepath, todo):
+def write_todo(todo, filepath="user_todo.txt"):
+	""" Write a new todo(s) to the file """
 	with open(filepath, 'w') as text_file:
 		text_file.writelines(todo)
 
@@ -43,18 +45,18 @@ while True:
 		add_todo = remove_first_word(user_command).strip().capitalize()
 
 		# Open the txt file and output its contents into the todo_list
-		todo_list = get_todo(todo_save_file)
+		todo_list = get_todo()
 		todo_list.append(add_todo + "\n")
 
 		# Write (w) the contents of todo_list to the txt file
 		# The files will update when the program is ended
 		# Note: w will over-write the entire file
-		write_todo(todo_save_file, todo_list)
+		write_todo(todo_list)
 		print(f'\'{add_todo}\' has been added')
 
 	#* SHOW
 	elif user_command.startswith("show") or user_command.startswith("s"):
-		todo_list = get_todo(todo_save_file)
+		todo_list = get_todo()
 
 		# print(f"\nYou have completed {completed_todos} tasks.")
 		print("\n------- TODOs -------")
@@ -70,14 +72,14 @@ while True:
 
 		try:
 			edit_choice = int(edit_choice)
-			todo_list = get_todo(todo_save_file)
+			todo_list = get_todo()
 
 			if edit_choice > len(todo_list) or edit_choice <= 0:
 				print(f"That todo doesnt exist.")
 			else:
 				print(f'\nEditing: {todo_list[edit_choice - 1]}', end="")
 				todo_list[edit_choice - 1] = input('New todo: ').capitalize() + "\n"
-				write_todo(todo_save_file, todo_list)
+				write_todo(todo_list)
 		except ValueError:
 			print(f'\'{edit_choice}\' is not a valid option. Please input a single number.\ne.g. \'edit 3\'')
 			continue
@@ -90,7 +92,7 @@ while True:
 			# completed_choice = completed_choice.split()
 			indices = [ int(num) for num in completed_choice.split() ]
 			indices.sort(reverse=True)
-			todo_list = get_todo(todo_save_file)
+			todo_list = get_todo()
 
 			index = 0
 			for num in indices:
@@ -100,7 +102,7 @@ while True:
 					todo_list.pop(num - 1)
 					index += 1
 
-			write_todo(todo_save_file, todo_list)
+			write_todo(todo_list)
 			print(f"Successfully completed {index} {'todos' if index > 1 else 'todo'}.")
 		except ValueError:
 			print(f'Error: That is not a valid option. Please only input numbers separated by spaces.\ne.g. \'complete 1 2 3\'')
