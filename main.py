@@ -1,7 +1,13 @@
 #    <dir>.<file name>      <functions 1>, <functions 2>, <functions 3>
 from funcs.functions import remove_first_word, get_todo, write_todo
+import time
 
-print("type 'help' for a list of commands\n")
+current_day = time.strftime("%b %d, \'%y")
+current_time = time.strftime("%I:%M %p")
+
+print(f'Date: {current_day}')
+print(f'Time: {current_time}')
+print("\nType 'help' for a list of commands")
 
 help_commands ="""
 1) Add <todo> .......... Add a todo.
