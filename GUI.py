@@ -6,7 +6,7 @@ import FreeSimpleGUI as sg
 
 add_todo_label = sg.Text("Type in a ToDo:")
 inputbox = sg.InputText(tooltip="Enter a ToDo:", key="todo")
-list_box = sg.Listbox(values=[item[:-1] for item in get_todo()], key='todos', enable_events=True, size=(45, 10))
+list_box = sg.Listbox(values=[item[:-1] for item in get_todo()], key='edit_todos', enable_events=True, size=(45, 10))
 add_button = sg.Button("Add")
 edit_button = sg.Button("Edit")
 quit_button = sg.Button("Quit")
@@ -53,7 +53,13 @@ while True:
 			print(f'\'{add_todo}\' has been added')
 
 		case "Edit":
-			edit_choice = value["todo"].strip()
+			edit_choice = value["edit_todos"][0] + "\n"
+			new_todo = str(value["todo"]).strip() + "\n"
+			todo_list = get_todo()
+			index = todo_list.index(edit_choice)
+			todo_list[index] = new_todo
+			write_todo(todo_list)
+
 
 
 
