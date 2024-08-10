@@ -71,7 +71,16 @@ while True:
 			window['input_todo'].update(value=value["edit_todos"][0])
 
 		case "Complete":
-			print(" ")
+			complete_choice = value["edit_todos"][0] + "\n"
+			todo_list = get_todo()
+			index = todo_list.index(complete_choice)
+			todo_list.pop(index)
+			write_todo(todo_list)
+
+			window["edit_todos"].update(values=[item[:-1] for item in todo_list])
+			window['input_todo'].update(value="")
+
+
 
 
 
