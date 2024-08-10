@@ -1,4 +1,4 @@
-# from funcs.functions import remove_first_word, get_todo, write_todo
+from funcs.functions import *
 import FreeSimpleGUI as sg
 
 add_todo_label = sg.Text("Type in a ToDo:")
@@ -36,6 +36,12 @@ while True:
 			break
 
 		case "add":
-			print(value["todo"])
+			add_todo = value["todo"].strip().capitalize()
+
+			todo_list = get_todo()
+			todo_list.append(add_todo + "\n")
+
+			write_todo(todo_list)
+			print(f'\'{add_todo}\' has been added')
 
 window.close()
