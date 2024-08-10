@@ -2,7 +2,7 @@
 import FreeSimpleGUI as sg
 
 add_todo_label = sg.Text("Type in a ToDo:")
-inputbox = sg.InputText(tooltip="Enter a ToDo:")
+inputbox = sg.InputText(tooltip="Enter a ToDo:", key="todo")
 add_button = sg.Button("Add")
 
 window = sg.Window('My ToDo app',
@@ -12,5 +12,25 @@ window = sg.Window('My ToDo app',
 				 ],
 			 font=("inter", 14))
 
-window.read()
+
+"""
+event = window.read()
+print(event)        # ('Add', {'todo': 'hello world'})
+print(event[0])     # Add
+print(event[1])     # {'todo': 'hello world'}
+print(event[1][0])  # hello world
+
+event, value = window.read()
+print(event)  # Add
+print(value)  # {'todo': 'hello world'}
+print(value["todo"])  # hello world
+"""
+
+while True:
+	event, value = window.read()
+	if value["todo"] == "quit":
+		break
+	else:
+		print(event, value["todo"])
+
 window.close()
