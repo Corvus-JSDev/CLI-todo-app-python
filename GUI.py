@@ -7,6 +7,7 @@ if not os.path.exists("user_todo.txt"):
 	with open("user_todo.txt", "w"):
 		pass
 
+
 # Remove the last 2 characters (\n) from each item
 # todo_list = [item[:-1] for item in get_todo()]
 
@@ -17,9 +18,9 @@ clock = sg.Text(time.strftime("%b %d, \'%y %I:%M %p"), key="clock")
 add_todo_label = sg.Text("Type in a ToDo:")
 inputbox = sg.InputText(tooltip="Enter a ToDo:", key="input_todo")
 list_box = sg.Listbox(values=[item[:-1] for item in get_todo()], key='edit_todos', enable_events=True, size=(45, 10))
-add_button = sg.Button(key="Add", image_source="imgs/add.png", tooltip="Add todo", mouseover_colors="LightBlue2")
+add_button = sg.Button("Add", tooltip="Add todo", mouseover_colors="LightBlue2")
 edit_button = sg.Button("Edit", mouseover_colors="LightBlue2")
-complete_button = sg.Button(key="Complete", mouseover_colors="LightBlue2", tooltip="Complete todo", image_source="imgs/complete.png")
+complete_button = sg.Button("Complete", mouseover_colors="LightBlue2")
 quit_button = sg.Button("Quit")
 
 window = sg.Window('My ToDo app',
