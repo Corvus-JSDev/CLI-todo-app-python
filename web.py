@@ -3,8 +3,8 @@ from funcs.functions import *
 
 
 def add_todo():
-	new_todo = str(st.session_state["new_todo_input"]).strip().capitalize() + "\n"
-	todo_list.append(new_todo)
+	new_todo = str(st.session_state["new_todo_input"]).strip().capitalize()
+	todo_list.append(new_todo + "\n")
 	write_todo(todo_list)
 	st.session_state["new_todo_input"] = ""
 	print(f'\'{new_todo}\' has been added.')
@@ -24,11 +24,17 @@ for todo in todo_list:
 	todo_index += 1
 
 
+# Complete todos
 for todo in st.session_state:
 	if todo.startswith("active_todo") and st.session_state[todo]:
+		# Remove the todo from the txt file
 		index = todo.split(" ")[1]
 		todo_list.pop(int(index))
 		write_todo(todo_list)
+
+		# Update the session list and the on-screen todos
+		del st.session_state[todo]
+		st.rerun()
 
 
 
