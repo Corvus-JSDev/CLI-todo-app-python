@@ -20,8 +20,16 @@ st.text_input(label='Enter a ToDo:', placeholder="Cook dinner", on_change=add_to
 todo_list = get_todo()
 todo_index = 0
 for todo in todo_list:
-	st.checkbox(todo, key=todo_index)
+	st.checkbox(todo, key=f'active_todo {todo_index}')
 	todo_index += 1
 
 
-# st.session_state
+for todo in st.session_state:
+	if todo.startswith("active_todo") and st.session_state[todo]:
+		index = todo.split(" ")[1]
+		todo_list.pop(int(index))
+		write_todo(todo_list)
+
+
+
+# print(st.session_state)
