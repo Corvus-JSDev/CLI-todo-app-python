@@ -12,7 +12,7 @@ def add_todo():
 
 st.title('My todo app')
 st.subheader('This is a simple todo app')
-st.write('meant to increase productivity')
+st.write('meant to <b>increase productivity</b>', unsafe_allow_html=True)
 
 st.text_input(label='Enter a ToDo:', placeholder="Cook dinner", on_change=add_todo, key="new_todo_input")
 
